@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Ninja Pomodoro</title>
+  <style>
+    body { background: #fef6e4; font-family: 'Poppins', sans-serif; text-align: center; }
+    .timer { font-size: 4em; margin-top: 20px; color: #ff6b6b; }
+    button { padding: 10px 20px; font-size: 1.2em; }
+  </style>
+</head>
+<body>
+  <h1>🍃 Ninja Training Timer</h1>
+  <div class="timer" id="timer">25:00</div>
+  <button onclick="startTimer()">Start Training</button>
+
+  <script>
+    let time = 25 * 60;
+    let timerId;
+
+    function updateTimer() {
+      const minutes = Math.floor(time / 60);
+      const seconds = time % 60;
+      document.getElementById("timer").textContent = 
+        `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+      if (time > 0) {
+        time--;
+      } else {
+        clearInterval(timerId);
+        alert("Time for a break, shinobi!");
+      }
+    }
+
+    function startTimer() {
+      clearInterval(timerId);
+      time = 25 * 60;
+      updateTimer();
+      timerId = setInterval(updateTimer, 1000);
+    }
+  </script>
+</body>
+</html>
