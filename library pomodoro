@@ -1,0 +1,90 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Library Pomodoro</title>
+  <style>
+    body {
+      background-color: #f4f1ee;
+      font-family: 'Georgia', serif;
+      text-align: center;
+      padding: 50px;
+      color: #3e3e3e;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 10px;
+    }
+
+    #timer {
+      font-size: 3rem;
+      margin: 20px 0;
+    }
+
+    button {
+      font-size: 1rem;
+      padding: 10px 20px;
+      margin: 10px;
+      background-color: #d9cfc1;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #cbbfb0;
+    }
+  </style>
+</head>
+<body>
+  <h1>📚 Cozy Library Pomodoro</h1>
+  <div id="timer">25:00</div>
+  <button onclick="startTimer()">Start</button>
+  <button onclick="resetTimer()">Reset</button>
+
+  <script>
+    let minutes = 25;
+    let seconds = 0;
+    let timer;
+    let isRunning = false;
+
+    function updateTimerDisplay() {
+      document.getElementById("timer").innerText =
+        `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+    }
+
+    function startTimer() {
+      if (isRunning) return;
+      isRunning = true;
+      timer = setInterval(() => {
+        if (seconds === 0) {
+          if (minutes === 0) {
+            clearInterval(timer);
+            alert("⏳ Time's up! Take a break. ☕");
+            isRunning = false;
+            return;
+          }
+          minutes--;
+          seconds = 59;
+        } else {
+          seconds--;
+        }
+        updateTimerDisplay();
+      }, 1000);
+    }
+
+    function resetTimer() {
+      clearInterval(timer);
+      minutes = 25;
+      seconds = 0;
+      updateTimerDisplay();
+      isRunning = false;
+    }
+
+    updateTimerDisplay();
+  </script>
+</body>
+</html>
